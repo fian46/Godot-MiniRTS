@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Deck.gd" type="Script" id=1]
+[ext_resource path="res://Card.tscn" type="PackedScene" id=2]
+
+[node name="Deck" type="GridContainer"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.76
+anchor_bottom = 1.0
+margin_left = -168.5
+margin_top = -600.0
+margin_right = 326.88
+margin_bottom = -461.0
+rect_scale = Vector2( 0.35, 0.35 )
+custom_constants/hseparation = 61
+columns = 4
+script = ExtResource( 1 )
+
+[node name="card" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_right = 0.0
+margin_left = 0.0
+margin_right = 120.0
+
+[node name="card2" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_right = 0.0
+margin_left = 181.0
+margin_right = 301.0
+
+[node name="card3" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_right = 0.0
+margin_left = 362.0
+margin_right = 482.0
+
+[node name="card4" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_right = 0.0
+margin_left = 543.0
+margin_right = 663.0
+[connection signal="toggled" from="card" to="." method="on_card_selecting" binds= [ 1 ]]
+[connection signal="toggled" from="card2" to="." method="on_card_selecting" binds= [ 2 ]]
+[connection signal="toggled" from="card3" to="." method="on_card_selecting" binds= [ 3 ]]
+[connection signal="toggled" from="card4" to="." method="on_card_selecting" binds= [ 4 ]]
