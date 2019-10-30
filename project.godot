@@ -15,7 +15,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="ClashClone"
+config/name="Mini-RTS"
 run/main_scene="res://Menu.tscn"
 boot_splash/fullsize=false
 config/icon="res://icon.png"

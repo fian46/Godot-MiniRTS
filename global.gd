@@ -1,7 +1,7 @@
 extends Node
 
 var kdtree = load("res://Alg/KDTree.gd")
-const rect:float = 45.0
+const rect:float = 30.0
 
 var blue_elixir := 0
 var red_elixir := 0

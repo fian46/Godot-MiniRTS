@@ -57,10 +57,8 @@ script = ExtResource( 2 )
 
 [node name="Choke" type="Node2D" parent="."]
 pause_mode = 1
-editor/display_folded = true
 
 [node name="TileMap" type="TileMap" parent="Choke"]
-editor/display_folded = true
 tile_set = ExtResource( 3 )
 cell_size = Vector2( 10, 10 )
 cell_quadrant_size = 128

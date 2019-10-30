@@ -6,7 +6,8 @@ var current_fr
 var agent_class = load("res://Agent.gd")
 
 var new_unit = []
-var skel = load("res://Character/Skeleton/Skeleton.tscn")
+# i want to lazy testing
+var skel = load("res://Character/Archer/Archer.tscn")
 
 func _ready():
 	set_network_master(1, false)
@@ -79,16 +80,12 @@ func unit_deploy(card, pos, blue):
 	new_unit.append([card, pos, blue])
 	return
 
-func measure():
-	return
-
 func _physics_process(delta):
 	if  not get_tree().network_peer:
 		return
 	server_deploy_unit()
 	server_sync_client()
 	client_predict_delete()
-	update_measure(false)
 	exec_thread()
 	run_state_machine()
 	update_info()
@@ -109,7 +106,6 @@ func deliver_retarget_event():
 		if  i is agent_class:
 			i.on_deploy_retarget()
 	return
-
 
 func run_state_machine():
 	if  not get_tree().is_network_server():
@@ -171,19 +167,10 @@ func server_deploy_unit():
 	
 	if  not new_unit.empty():
 		new_unit.clear()
-		update_measure(true)
 		deliver_retarget_event()
 		return
 	
 	new_unit.clear()
-	return
-
-var frame = 0
-func update_measure(forcing):
-	frame += 1
-	if  frame == 10 or forcing:
-		frame = 0
-		measure()
 	return
 
 func update_info():

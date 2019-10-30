@@ -20,9 +20,12 @@ func on_deploy_retarget():
 	nearest_target()
 	return
 
+#type is type of card
+#every card need to give this unique number
 func get_type():
 	return 0
 
+#snapshot is buffer sync
 func get_snapshot():
 	return
 
@@ -69,6 +72,7 @@ func remove_force_field(id):
 	csign += 1
 	return
 
+#we use this
 func state_machine():
 	return
 
