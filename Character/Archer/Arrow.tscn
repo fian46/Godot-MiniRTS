@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://tile.png" type="Texture" id=1]
+
+[node name="Arrow" type="Sprite"]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 66.998, 52.7706, 9.00195, 3.46983 )

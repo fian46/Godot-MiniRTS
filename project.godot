@@ -32,7 +32,6 @@ gdscript/completion/autocomplete_setters_and_getters=true
 [display]
 
 window/size/width=337
-window/vsync/use_vsync=false
 window/handheld/orientation="portrait"
 
 [input_devices]
