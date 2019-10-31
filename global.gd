@@ -14,7 +14,7 @@ var red = 0
 var blue = 0
 
 #menu information
-var host = false
+var host = true
 
 #name creation
 var counter = 0

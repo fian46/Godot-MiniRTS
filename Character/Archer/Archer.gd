@@ -7,6 +7,7 @@ const AGRO = 1
 const ATTACK = 2
 const DEAL_DAMAGE = 3
 var atk_timer = 0
+var arrow_class = load("res://Character/Arrow/Arrow.tscn")
 
 func _ready():
 	$Arrow.set_as_toplevel(true)
@@ -74,32 +75,32 @@ func state_machine():
 			state = deal_damage()
 	return
 
-func _physics_process(delta):
-	if  state == ATTACK:
-		var ne = get_nearest()
-		if  not ne:
-			$Arrow.visible = false
-			return
-		if  not get_tree().is_network_server():
-			atk_timer += 1
-		$Arrow.visible = atk_timer <= attack_time
-		var inter = float(atk_timer + 1) / attack_time
-		var dir:Vector2 = ne.position - position
-		dir *= inter
-		$Arrow.position = position + dir
-		$Arrow.rotation = dir.angle()
-	else:
-		if  not get_tree().is_network_server():
-			atk_timer = 0
-		$Arrow.visible = false
-	return
+#func _physics_process(delta):
+#	if  state == ATTACK:
+#		var ne = get_nearest()
+#		if  not ne:
+#			$Arrow.visible = false
+#			return
+#		if  not global.host:
+#			atk_timer += 1
+#		$Arrow.visible = atk_timer <= attack_time
+#		var inter = float(atk_timer + 1) / attack_time
+#		var dir:Vector2 = ne.position - position
+#		dir *= inter
+#		$Arrow.position = position + dir
+#		$Arrow.rotation = dir.angle()
+#	else:
+#		if  not global.host:
+#			atk_timer = 0
+#		$Arrow.visible = false
+#	return
 
 func agro():
 	cont()
 	var ne = get_nearest()
 	if  not ne:
 		return FORWARD
-	if  ne.position.distance_to(position) <= 40:
+	if  ne.position.distance_to(position) <= 60:
 		return ATTACK
 	var field = ne.position - position
 	var speed = field.normalized() * max_speed
@@ -119,7 +120,7 @@ func attack():
 	if  ne.mark_delete:
 		atk_timer = 0
 		return FORWARD
-	if  ne.position.distance_to(position) >= 2 * get_base_radius() + 40:
+	if  ne.position.distance_to(position) >= 2 * get_base_radius() + 60:
 		atk_timer = 0
 		return FORWARD
 	var attack_time = 8.0
@@ -129,12 +130,15 @@ func attack():
 		return DEAL_DAMAGE
 	return ATTACK
 
+
 func deal_damage():
 	var ne = get_nearest()
 	if  ne:
-		ne.health -= 3
-		if  ne.health <= 0:
-			ne.mark_delete = true
+		var ar = arrow_class.instance()
+		ar.position = position
+		ar.set_target(ne)
+		ar.name = global.ngen()
+		get_parent().add_child(ar)
 	return ATTACK
 
 func forward():
@@ -144,9 +148,9 @@ func forward():
 	var ne = get_nearest()
 	if  ne:
 		var distance_to_ne = ne.position.distance_to(position)
-		if  distance_to_ne < 70 and (distance_to_ne - distance_to_closest_wall(ne.position)) < 40:
+		if  distance_to_ne < 70 and (distance_to_ne - distance_to_closest_wall(ne.position)) < 60:
 			return AGRO
-		elif distance_to_ne < 40 + 2 * get_base_radius():
+		elif distance_to_ne < 60 + 2 * get_base_radius():
 			return ATTACK
 	
 	var field = flow_field()

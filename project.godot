@@ -46,7 +46,6 @@ pointing/emulate_touch_from_mouse=true
 
 [physics]
 
-common/physics_fps=20
 common/physics_jitter_fix=0.1
 2d/default_gravity=0
 2d/default_gravity_vector=Vector2( 0, 0 )

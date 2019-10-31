@@ -9,7 +9,7 @@ const DEAL_DAMAGE = 4
 var state = FORWARD
 
 func get_type():
-	return 1
+	return 0
 
 func get_snapshot():
 	var b = StreamPeerBuffer.new()

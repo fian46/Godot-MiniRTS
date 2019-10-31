@@ -7,7 +7,9 @@ var agent_class = load("res://Agent.gd")
 
 var new_unit = []
 # i want to lazy testing
-var skel = load("res://Character/Archer/Archer.tscn")
+var skel = load("res://Character/Skeleton/Skeleton.tscn")
+var arch = load("res://Character/Archer/Archer.tscn")
+var arro = load("res://Character/Arrow/Arrow.tscn")
 
 func _ready():
 	set_network_master(1, false)
@@ -45,7 +47,7 @@ func packet(id, data):
 	if  type == 1:
 		var size = b.get_32()
 		var fr = b.get_32()
-		if  (client_read_frame < fr):
+		if  client_read_frame < fr:
 			client_read_frame = fr
 		else:
 			return 
@@ -62,15 +64,24 @@ func packet(id, data):
 				child.set_snapshot(pb_array)
 				child.frame = fr
 			else:
-				var child = skel.instance()
+				var child = null
+				match(type0):
+					0:
+						child = skel.instance()
+					1:
+						child = arch.instance()
+					2:
+						child = arro.instance()
+				
 				child.set_snapshot(pb_array)
 				child.name = sname
-				child.position = child.sync_position
+				if  child.get("sync_position"):
+					child.position = child.sync_position
 				child.frame = fr
 				add_child(child)
 		
 		for i in get_children():
-			if  i is agent_class:
+			if  i.get("frame"):
 				if  i.frame != fr:
 					remove_child(i)
 					i.free()
@@ -80,25 +91,17 @@ func unit_deploy(card, pos, blue):
 	new_unit.append([card, pos, blue])
 	return
 
+var skip_frame = 0
 func _physics_process(delta):
 	if  not get_tree().network_peer:
 		return
-	server_deploy_unit()
-	server_sync_client()
-	client_predict_delete()
-	exec_thread()
-	run_state_machine()
-	update_info()
-	return
-
-func client_predict_delete():
-	if  get_tree().is_network_server():
-		return
-	for i in get_children():
-		if  i is agent_class:
-			if  i.mark_delete:
-				remove_child(i)
-				i.free()
+	skip_frame += 1
+	if  skip_frame % 3 == 0:
+		server_deploy_unit()
+		server_sync_client()
+		exec_thread()
+		run_state_machine()
+		update_info()
 	return
 
 func deliver_retarget_event():
@@ -115,19 +118,15 @@ func run_state_machine():
 			i.state_machine()
 	return
 
-var sync_frame = 0
 func server_sync_client():
 	if  not get_tree().is_network_server():
 		return
-	sync_frame += 1
-	if  sync_frame % 2 != 0:
+	if  skip_frame % 6 != 0:
 		return
 	if  get_child_count() > 0:
-		
 		var temp_buf = StreamPeerBuffer.new()
-		
 		for i in get_children():
-			if  i is agent_class:
+			if  i.has_method("get_snapshot"):
 				if  not i.mark_delete:
 					var sel:PoolByteArray = i.get_snapshot()
 					var size = sel.size()
@@ -140,13 +139,13 @@ func server_sync_client():
 		var sync_buf = StreamPeerBuffer.new()
 		sync_buf.put_8(1)
 		sync_buf.put_32(temp_buf.data_array.size())
-		sync_buf.put_32(sync_frame)
+		sync_buf.put_32(skip_frame)
 		sync_buf.put_data(temp_buf.data_array)
 		multiplayer.send_bytes(sync_buf.data_array, 0, NetworkedMultiplayerPeer.TRANSFER_MODE_UNRELIABLE)
 	return
 
 func create_skel(name, position, blue):
-	var child:Node2D = skel.instance()
+	var child:Node2D = arch.instance()
 	child.name = name
 	child.position = position
 	child.is_blue = blue
