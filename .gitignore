@@ -1,1 +1,5 @@
-
+.import
+*.apk
+*.pck
+*.x86_64
+*.exe
