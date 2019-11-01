@@ -29,14 +29,6 @@ func get_snapshot():
 		b.put_8(1)
 	else:
 		b.put_8(0)
-	
-	b.put_8(state)
-	if  state == ATTACK:
-		var ne = get_nearest()
-		if  ne:
-			b.put_16(int(ne.name))
-		else:
-			b.put_16(-1)
 	return b.data_array
 
 func set_snapshot(snap):
@@ -50,14 +42,6 @@ func set_snapshot(snap):
 		is_blue = true
 	else:
 		is_blue = false
-	state = b.get_8()
-	if  state == ATTACK:
-		var ns = str(b.get_16())
-		var pa = get_parent()
-		if  pa and pa.has_node(ns):
-			var no = pa.get_node(ns)
-			if  no:
-				nearest = weakref(no)
 	return
 
 func readv(b:StreamPeerBuffer):
@@ -74,26 +58,6 @@ func state_machine():
 		DEAL_DAMAGE:
 			state = deal_damage()
 	return
-
-#func _physics_process(delta):
-#	if  state == ATTACK:
-#		var ne = get_nearest()
-#		if  not ne:
-#			$Arrow.visible = false
-#			return
-#		if  not global.host:
-#			atk_timer += 1
-#		$Arrow.visible = atk_timer <= attack_time
-#		var inter = float(atk_timer + 1) / attack_time
-#		var dir:Vector2 = ne.position - position
-#		dir *= inter
-#		$Arrow.position = position + dir
-#		$Arrow.rotation = dir.angle()
-#	else:
-#		if  not global.host:
-#			atk_timer = 0
-#		$Arrow.visible = false
-#	return
 
 func agro():
 	cont()
@@ -144,7 +108,6 @@ func deal_damage():
 func forward():
 	cont()
 	nearest_target()
-	
 	var ne = get_nearest()
 	if  ne:
 		var distance_to_ne = ne.position.distance_to(position)
