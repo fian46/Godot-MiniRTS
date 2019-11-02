@@ -87,7 +87,7 @@ func index_blue(id:Node2D):
 func key(pos):
 	var x = ikey(pos.x)
 	var y = ikey(pos.y)
-	var k = str(x,"|",y)
+	var k = str(x,",",y)
 	return k
 
 func index_red(id:Node2D):

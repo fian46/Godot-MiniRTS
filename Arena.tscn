@@ -59,7 +59,6 @@ script = ExtResource( 2 )
 pause_mode = 1
 
 [node name="TileMap" type="TileMap" parent="Choke"]
-editor/display_folded = true
 tile_set = ExtResource( 3 )
 cell_size = Vector2( 10, 10 )
 cell_quadrant_size = 128
@@ -68,6 +67,7 @@ tile_data = PoolIntArray( -1048580, 5, 0, -1048579, 5, 0, -1048578, 5, 0, -10485
 
 [node name="border_field" type="Node2D" parent="Choke/TileMap"]
 editor/display_folded = true
+visible = false
 
 [node name="CenterBody" type="StaticBody2D" parent="Choke/TileMap/border_field"]
 editor/display_folded = true
@@ -210,6 +210,7 @@ invert_color = false
 
 [node name="blue_field" type="Node2D" parent="Choke/TileMap"]
 editor/display_folded = true
+visible = false
 
 [node name="FlowField210" parent="Choke/TileMap/blue_field" instance=ExtResource( 4 )]
 position = Vector2( -14.5004, 25.5001 )
@@ -252,7 +253,6 @@ level = 1
 invert_color = false
 
 [node name="FlowField212" parent="Choke/TileMap/blue_field" instance=ExtResource( 4 )]
-visible = false
 position = Vector2( -1, 60 )
 scale = Vector2( 0.2, 10.4 )
 red_direction = 180.0
@@ -261,7 +261,6 @@ level = 1
 invert_color = false
 
 [node name="FlowField220" parent="Choke/TileMap/blue_field" instance=ExtResource( 4 )]
-visible = false
 position = Vector2( -1, 150 )
 scale = Vector2( 0.2, 2 )
 red_direction = 180.0
@@ -320,16 +319,16 @@ invert_color = false
 [node name="FlowField234" parent="Choke/TileMap/blue_field" instance=ExtResource( 4 )]
 position = Vector2( -30, 155 )
 scale = Vector2( 0.1, 1 )
-red_direction = 0.0
-blue_direction = 0.0
+red_direction = 90.0
+blue_direction = 270.0
 level = 1
 invert_color = false
 
 [node name="FlowField235" parent="Choke/TileMap/blue_field" instance=ExtResource( 4 )]
 position = Vector2( 30, 155 )
 scale = Vector2( 0.1, 1 )
-red_direction = 180.0
-blue_direction = 180.0
+red_direction = 90.0
+blue_direction = 270.0
 level = 1
 invert_color = false
 
@@ -534,8 +533,8 @@ level = 0
 invert_color = false
 
 [node name="red_field" type="Node2D" parent="Choke/TileMap"]
-editor/display_folded = true
-rotation = -3.14159
+visible = false
+rotation = 3.14159
 
 [node name="FlowField210" parent="Choke/TileMap/red_field" instance=ExtResource( 4 )]
 position = Vector2( -14.5004, 25.5001 )
@@ -578,7 +577,6 @@ level = 1
 invert_color = true
 
 [node name="FlowField212" parent="Choke/TileMap/red_field" instance=ExtResource( 4 )]
-visible = false
 position = Vector2( -1, 60 )
 scale = Vector2( 0.2, 10.4 )
 red_direction = 180.0
@@ -587,7 +585,6 @@ level = 1
 invert_color = true
 
 [node name="FlowField220" parent="Choke/TileMap/red_field" instance=ExtResource( 4 )]
-visible = false
 position = Vector2( -1, 150 )
 scale = Vector2( 0.2, 2 )
 red_direction = 180.0
@@ -646,16 +643,16 @@ invert_color = true
 [node name="FlowField234" parent="Choke/TileMap/red_field" instance=ExtResource( 4 )]
 position = Vector2( -30, 155 )
 scale = Vector2( 0.1, 1 )
-red_direction = 0.0
-blue_direction = 0.0
+red_direction = 90.0
+blue_direction = 270.0
 level = 1
 invert_color = true
 
 [node name="FlowField235" parent="Choke/TileMap/red_field" instance=ExtResource( 4 )]
 position = Vector2( 30, 155 )
 scale = Vector2( 0.1, 1 )
-red_direction = 180.0
-blue_direction = 180.0
+red_direction = 90.0
+blue_direction = 270.0
 level = 1
 invert_color = true
 
@@ -858,6 +855,20 @@ red_direction = 200.0
 blue_direction = 330.0
 level = 0
 invert_color = true
+
+[node name="DropArea" type="Polygon2D" parent="Choke/TileMap"]
+visible = false
+color = Color( 0.388235, 0.054902, 0.878431, 0.666667 )
+polygon = PoolVector2Array( -110, 10, -90, 10, -90, 0, -60, 0, -60, 10, 60, 10, 60, 0, 90, 0, 90, 10, 110, 10, 110, 150, 30, 150, 30, 160, -30, 160, -30, 150, -110, 150 )
+
+[node name="DropBody" type="StaticBody2D" parent="Choke/TileMap/DropArea"]
+visible = false
+collision_layer = 32
+collision_mask = 32
+
+[node name="DroShape" type="CollisionPolygon2D" parent="Choke/TileMap/DropArea/DropBody"]
+visible = false
+polygon = PoolVector2Array( -110, 10, -90, 10, -90, 0, -60, 0, -60, 10, 60, 10, 60, 0, 90, 0, 90, 10, 110, 10, 110, 150, 30, 150, 30, 160, -30, 160, -30, 150, -110, 150 )
 
 [node name="Unit" type="YSort" parent="Choke/TileMap"]
 editor/display_folded = true

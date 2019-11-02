@@ -30,3 +30,9 @@ func update_card(cards):
 	for i in range(4):
 		get_child(i).set_card(cards[i])
 	return
+
+onready var drop = get_parent().get_parent().get_node("TileMap/DropArea")
+
+func _process(delta):
+	drop.visible = selected != -1
+	return

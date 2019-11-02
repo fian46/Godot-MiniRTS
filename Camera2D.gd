@@ -29,8 +29,9 @@ func _unhandled_input(event):
 			var half = size / 2
 			pos = pos - half
 			pos = (pos * zoom) + get_camera_position()
-			var det = get_world_2d().direct_space_state.intersect_point(pos, 1, [], 4)
-			if  det:
+			var det = get_world_2d().direct_space_state.intersect_point(pos, 1, [], 32)
+			if  not det:
+				error("Cannot drop my unit there !")
 				return
 			if  get_tree().is_network_server():
 				if  valid_card(global.blue_card):
@@ -51,13 +52,25 @@ master func server_drop(card, pos, blue):
 	var scard = null
 	if  blue:
 		scard = global.blue_deck[card]
-		global.blue_deck.remove(card)
+		var cost = global.card_map[scard][1]
+		if  global.blue_elixir < cost:
+			error("Not enough mana !")
+			return 
+		global.blue_elixir -= cost
+		global.blue_deck[card] = global.blue_deck[4]
+		global.blue_deck.remove(4)
 		global.blue_deck.append(scard)
 		clear_deck_selection()
 		update_deck(global.blue_deck)
 	else:
 		scard = global.red_deck[card]
-		global.red_deck.remove(card)
+		var cost = global.card_map[scard][1]
+		if  global.red_elixir < cost:
+			rpc("error", "Not enough mana !")
+			return
+		global.red_elixir -= cost
+		global.red_deck[card] = global.red_deck[4]
+		global.red_deck.remove(4)
 		global.red_deck.append(scard)
 		rpc("clear_deck_selection")
 		rpc("update_deck", global.red_deck)
@@ -83,7 +96,7 @@ puppet func update_deck(param):
 	deck.update_card(param)
 	return
 
-func error(msg):
+puppet func error(msg):
 	var error:Label = get_parent().get_node("Choke/Error")
 	error.text = msg
 	yield(get_tree().create_timer(3), "timeout")
