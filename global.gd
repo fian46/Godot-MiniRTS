@@ -6,8 +6,19 @@ const rect:float = 30.0
 var blue_elixir := 0
 var red_elixir := 0
 
-var red_card = []
-var blue_card = []
+var skel = load("res://Character/Skeleton/Skeleton.tscn")
+var arch = load("res://Character/Archer/Archer.tscn")
+
+var red_deck = [0, 1, 0, 1, 0, 1, 0, 1]
+var blue_deck = [0, 1, 0, 1, 0, 1, 0, 1]
+
+var card_map = {
+	0 : [skel, 3, 10, 200, "Skeleton"],
+	1 : [arch, 2, 90, 80, "Archer"]
+}
+
+var blue_card = -1
+var red_card = -1
 
 #debug information
 var red = 0

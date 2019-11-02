@@ -69,6 +69,7 @@ remotesync func server_start():
 	$JointScreen.visible = false
 	$HostScreen.visible = false
 	get_tree().paused = false
+	$Camera2D.init_deck()
 	return
 
 func server_disconnected():

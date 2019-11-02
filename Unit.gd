@@ -6,7 +6,7 @@ var current_fr
 var agent_class = load("res://Agent.gd")
 
 var new_unit = []
-# i want to lazy testing
+
 var skel = load("res://Character/Skeleton/Skeleton.tscn")
 var arch = load("res://Character/Archer/Archer.tscn")
 var arro = load("res://Character/Arrow/Arrow.tscn")
@@ -72,7 +72,6 @@ func packet(id, data):
 						child = arch.instance()
 					2:
 						child = arro.instance()
-				
 				child.set_snapshot(pb_array)
 				child.name = sname
 				if  child.get("sync_position"):
@@ -145,11 +144,17 @@ func server_sync_client():
 	return
 
 func create_skel(name, position, blue):
+	var child:Node2D = skel.instance()
+	child.name = name
+	child.position = position
+	child.is_blue = blue
+	return child
+
+func create_arch(name, position, blue):
 	var child:Node2D = arch.instance()
 	child.name = name
 	child.position = position
 	child.is_blue = blue
-	child.set_network_master(1)
 	return child
 
 func server_deploy_unit():
@@ -158,12 +163,20 @@ func server_deploy_unit():
 	
 	for i in new_unit:
 		var offset = Vector2(2, 0)
-		for j in range(15):
-			offset = offset.rotated(deg2rad(17)) * 1.1
-			var child = create_skel(global.ngen(), i[1] + offset, i[2])
-			child.sync_position = i[1] + offset
+		if  i[0] == 0:
+			for j in range(15):
+				offset = offset.rotated(deg2rad(17)) * 1.1
+				var child = create_skel(global.ngen(), i[1] + offset, i[2])
+				child.sync_position = i[1] + offset
+				add_child(child)
+		elif i[0] == 1:
+			var child = create_arch(global.ngen(), i[1] + Vector2(-4, 0), i[2])
+			child.sync_position = child.position
 			add_child(child)
-	
+			child = create_arch(global.ngen(), i[1] + Vector2(4, 0), i[2])
+			child.sync_position = child.position
+			add_child(child)
+		
 	if  not new_unit.empty():
 		new_unit.clear()
 		deliver_retarget_event()

@@ -11,6 +11,7 @@ var arrow_class = load("res://Character/Arrow/Arrow.tscn")
 
 func _ready():
 	$Arrow.set_as_toplevel(true)
+	health = 16
 	return
 
 func get_type():

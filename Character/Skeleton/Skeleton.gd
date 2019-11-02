@@ -44,7 +44,7 @@ func set_snapshot(snap):
 
 func _ready():
 	area_radius = 70
-	health = 100
+	health = 10
 	return
 
 func state_machine():
@@ -105,7 +105,7 @@ func deal_damage():
 		return FORWARD
 	if  not in_attack_range():
 		return FORWARD
-	ne.health -= 10
+	ne.health -= 2
 	if  ne.health <= 0:
 		ne.mark_delete = true
 	return ATTACK

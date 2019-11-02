@@ -45,13 +45,6 @@ func get_nearest():
 		return null
 	return nearest.get_ref()
 
-func damaged(value):
-	health -= value
-	return
-
-func is_agent(obj):
-	return obj.has_method("is_agent")
-
 func _ready():
 	base_rad = $shape.shape.radius
 	return
@@ -81,9 +74,6 @@ func _enter_tree():
 		if  has_node("BLUE"):
 			$BLUE.visible = false
 	return
-
-func death():
-	return health <= 0
 
 func nearest_target():
 	var selected = null;
@@ -166,7 +156,3 @@ func cont():
 
 func get_base_radius():
 	return base_rad
-
-func separation():
-	var sforce = Vector2(0, 0)
-	return sforce

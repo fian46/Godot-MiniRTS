@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Texture/card_base.png" type="Texture" id=1]
 [ext_resource path="res://Texture/card_base_selected.png" type="Texture" id=2]
+[ext_resource path="res://Card.gd" type="Script" id=3]
+[ext_resource path="res://Font/Font-Med.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Font/Font-Small.tres" type="DynamicFont" id=5]
 
 [node name="card" type="TextureButton"]
 anchor_left = 0.5
@@ -12,3 +15,105 @@ margin_bottom = 160.0
 toggle_mode = true
 texture_normal = ExtResource( 1 )
 texture_pressed = ExtResource( 2 )
+script = ExtResource( 3 )
+
+[node name="Placement" type="Control" parent="."]
+
+[node name="Name" type="Label" parent="Placement"]
+margin_left = 11.008
+margin_top = 139.885
+margin_right = 107.008
+margin_bottom = 156.885
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0.513726, 0.129412, 0.317647, 1 )
+text = "Archer"
+align = 1
+valign = 1
+
+[node name="V" type="VBoxContainer" parent="Placement"]
+editor/display_folded = true
+margin_left = 13.008
+margin_top = 24.8651
+margin_right = 105.008
+margin_bottom = 79.8651
+
+[node name="H" type="HBoxContainer" parent="Placement/V"]
+editor/display_folded = true
+margin_right = 92.0
+margin_bottom = 15.0
+
+[node name="Cost" type="Label" parent="Placement/V/H"]
+margin_right = 36.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 5 )
+text = "COST"
+
+[node name="H2" type="HBoxContainer" parent="Placement/V"]
+editor/display_folded = true
+margin_top = 19.0
+margin_right = 92.0
+margin_bottom = 34.0
+
+[node name="DMG" type="Label" parent="Placement/V/H2"]
+margin_right = 32.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 5 )
+text = "DMG"
+
+[node name="H3" type="HBoxContainer" parent="Placement/V"]
+editor/display_folded = true
+margin_top = 38.0
+margin_right = 92.0
+margin_bottom = 53.0
+
+[node name="HP" type="Label" parent="Placement/V/H3"]
+margin_right = 18.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 5 )
+text = "HP"
+
+[node name="V2" type="VBoxContainer" parent="Placement"]
+editor/display_folded = true
+margin_left = 12.008
+margin_top = 24.8651
+margin_right = 106.008
+margin_bottom = 80.8651
+
+[node name="H" type="HBoxContainer" parent="Placement/V2"]
+editor/display_folded = true
+margin_right = 94.0
+margin_bottom = 15.0
+alignment = 2
+
+[node name="Cost" type="Label" parent="Placement/V2/H"]
+margin_left = 89.0
+margin_right = 94.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 5 )
+text = "1"
+
+[node name="H2" type="HBoxContainer" parent="Placement/V2"]
+margin_top = 19.0
+margin_right = 94.0
+margin_bottom = 34.0
+alignment = 2
+
+[node name="DMG" type="Label" parent="Placement/V2/H2"]
+margin_left = 81.0
+margin_right = 94.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 5 )
+text = "10"
+
+[node name="H3" type="HBoxContainer" parent="Placement/V2"]
+margin_top = 38.0
+margin_right = 94.0
+margin_bottom = 53.0
+alignment = 2
+
+[node name="HP" type="Label" parent="Placement/V2/H3"]
+margin_left = 65.0
+margin_right = 94.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 5 )
+text = "1800"

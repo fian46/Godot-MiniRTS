@@ -5,7 +5,7 @@
 [ext_resource path="res://Texture/kn (0000).png" type="Texture" id=3]
 [ext_resource path="res://Character/Archer/Arrow.tscn" type="PackedScene" id=4]
 
-[node name="Archer" instance=ExtResource( 1 )]
+[node name="Archer" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
 [node name="RED" parent="." index="2"]

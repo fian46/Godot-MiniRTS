@@ -40,7 +40,7 @@ anchor_left = 0.0
 anchor_right = 0.0
 margin_left = 543.0
 margin_right = 663.0
-[connection signal="toggled" from="card" to="." method="on_card_selecting" binds= [ 1 ]]
-[connection signal="toggled" from="card2" to="." method="on_card_selecting" binds= [ 2 ]]
-[connection signal="toggled" from="card3" to="." method="on_card_selecting" binds= [ 3 ]]
-[connection signal="toggled" from="card4" to="." method="on_card_selecting" binds= [ 4 ]]
+[connection signal="toggled" from="card" to="." method="on_card_selecting" binds= [ 0 ]]
+[connection signal="toggled" from="card2" to="." method="on_card_selecting" binds= [ 1 ]]
+[connection signal="toggled" from="card3" to="." method="on_card_selecting" binds= [ 2 ]]
+[connection signal="toggled" from="card4" to="." method="on_card_selecting" binds= [ 3 ]]

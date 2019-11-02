@@ -69,7 +69,7 @@ func _physics_process(delta):
 	position = position + dp
 	if  position.distance_to(target.position) < 0.1:
 		mark_delete = true
-		target.health -= 5
+		target.health -= 12
 		if  target.health <= 0:
 			target.mark_delete = true
 	return
