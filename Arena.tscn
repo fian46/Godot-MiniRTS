@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Arena.gd" type="Script" id=1]
 [ext_resource path="res://Camera2D.gd" type="Script" id=2]
@@ -9,9 +9,10 @@
 [ext_resource path="res://Deck.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Font/Font.tres" type="DynamicFont" id=8]
 [ext_resource path="res://FPS.gd" type="Script" id=9]
-[ext_resource path="res://PauseScreen.gd" type="Script" id=10]
-[ext_resource path="res://JointScreen.gd" type="Script" id=11]
-[ext_resource path="res://FailedInfo.gd" type="Script" id=12]
+[ext_resource path="res://Nav.gd" type="Script" id=10]
+[ext_resource path="res://PauseScreen.gd" type="Script" id=11]
+[ext_resource path="res://JointScreen.gd" type="Script" id=12]
+[ext_resource path="res://FailedInfo.gd" type="Script" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 60, 10 )
@@ -31,7 +32,12 @@ extents = Vector2( 110, 95 )
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 40, 10 )
 
-[sub_resource type="StyleBoxFlat" id=7]
+[sub_resource type="NavigationPolygon" id=7]
+vertices = PoolVector2Array( 60, 10, 60, -10, 90, -10, 90, 10, -90, -10, -30, -150, 0, -160, 30, -160, 30, -150, -60, -10, -90, 10, 110, -150, 110, -10, 110, 10, 110, 150, 30, 150, -60, 10, -30, 150, 30, 160, -30, 160, -110, 150, -110, 10, -110, -10, -110, -150, -30, -160 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 5, 6, 7, 8, 9, 10 ), PoolIntArray( 8, 11, 12, 2 ), PoolIntArray( 8, 2, 1 ), PoolIntArray( 8, 1, 9 ), PoolIntArray( 3, 13, 14, 15 ), PoolIntArray( 0, 3, 15 ), PoolIntArray( 16, 0, 15, 17 ), PoolIntArray( 15, 18, 19, 17 ), PoolIntArray( 16, 17, 20, 10 ), PoolIntArray( 20, 21, 10 ), PoolIntArray( 9, 16, 10 ), PoolIntArray( 4, 22, 23, 5 ), PoolIntArray( 24, 6, 5 ) ]
+outlines = [ PoolVector2Array( 0, -160, 30, -160, 30, -150, 110, -150, 110, -10, 90, -10, 90, 10, 110, 10, 110, 150, 30, 150, 30, 160, -30, 160, -30, 150, -110, 150, -110, 10, -90, 10, -90, -10, -110, -10, -110, -150, -30, -150, -30, -160 ), PoolVector2Array( -60, -10, 60, -10, 60, 10, -60, 10 ) ]
+
+[sub_resource type="StyleBoxFlat" id=8]
 content_margin_left = 7.0
 content_margin_right = 7.0
 bg_color = Color( 0.137255, 0.0392157, 0.0470588, 1 )
@@ -59,6 +65,7 @@ script = ExtResource( 2 )
 pause_mode = 1
 
 [node name="TileMap" type="TileMap" parent="Choke"]
+editor/display_folded = true
 tile_set = ExtResource( 3 )
 cell_size = Vector2( 10, 10 )
 cell_quadrant_size = 128
@@ -533,6 +540,7 @@ level = 0
 invert_color = false
 
 [node name="red_field" type="Node2D" parent="Choke/TileMap"]
+editor/display_folded = true
 visible = false
 rotation = 3.14159
 
@@ -857,6 +865,7 @@ level = 0
 invert_color = true
 
 [node name="DropArea" type="Polygon2D" parent="Choke/TileMap"]
+editor/display_folded = true
 visible = false
 color = Color( 0.388235, 0.054902, 0.878431, 0.666667 )
 polygon = PoolVector2Array( -110, 10, -90, 10, -90, 0, -60, 0, -60, 10, 60, 10, 60, 0, 90, 0, 90, 10, 110, 10, 110, 150, 30, 150, 30, 160, -30, 160, -30, 150, -110, 150 )
@@ -881,6 +890,7 @@ position = Vector2( 0, 125 )
 position = Vector2( 0, -125 )
 
 [node name="Center" type="Node2D" parent="Choke"]
+editor/display_folded = true
 
 [node name="bg" type="Line2D" parent="Choke/Center"]
 position = Vector2( 4.55988, 202.039 )
@@ -930,11 +940,17 @@ custom_colors/font_color = Color( 0.752941, 0.101961, 0.101961, 1 )
 align = 1
 valign = 1
 
+[node name="Nav" type="Navigation2D" parent="Choke"]
+script = ExtResource( 10 )
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Choke/Nav"]
+navpoly = SubResource( 7 )
+
 [node name="HostScreen" type="Node2D" parent="."]
 pause_mode = 2
 editor/display_folded = true
 visible = false
-script = ExtResource( 10 )
+script = ExtResource( 11 )
 
 [node name="BG" type="Polygon2D" parent="HostScreen"]
 color = Color( 0.0196078, 0.0941176, 0.121569, 0.862745 )
@@ -976,7 +992,7 @@ autowrap = true
 pause_mode = 2
 editor/display_folded = true
 visible = false
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 
 [node name="BG" type="Polygon2D" parent="JointScreen"]
 color = Color( 0.0196078, 0.0941176, 0.121569, 0.862745 )
@@ -1039,7 +1055,7 @@ margin_right = 230.0
 margin_bottom = 30.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
 custom_fonts/font = ExtResource( 8 )
 text = "192.168.1.78"
 
@@ -1060,7 +1076,7 @@ margin_bottom = 24.0
 custom_fonts/font = ExtResource( 8 )
 custom_colors/font_color = Color( 0.792157, 0.219608, 0.219608, 1 )
 text = "Connection Failed !"
-script = ExtResource( 12 )
+script = ExtResource( 13 )
 
 [node name="Timer" type="Timer" parent="JointScreen/Control/input2/FailedInfo"]
 [connection signal="timeout" from="Choke/Center/elixir/elixir_timer" to="Choke/Center/elixir" method="_on_elixir_timer_timeout"]

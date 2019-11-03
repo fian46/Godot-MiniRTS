@@ -18,6 +18,7 @@ texture_pressed = ExtResource( 2 )
 script = ExtResource( 3 )
 
 [node name="Placement" type="Control" parent="."]
+editor/display_folded = true
 mouse_filter = 2
 
 [node name="Name" type="Label" parent="Placement"]
@@ -32,6 +33,7 @@ align = 1
 valign = 1
 
 [node name="V" type="VBoxContainer" parent="Placement"]
+editor/display_folded = true
 margin_left = 13.0
 margin_top = 25.0
 margin_right = 105.0
@@ -77,6 +79,7 @@ custom_fonts/font = ExtResource( 5 )
 text = "HP"
 
 [node name="V2" type="VBoxContainer" parent="Placement"]
+editor/display_folded = true
 margin_left = 12.0
 margin_top = 25.0
 margin_right = 106.0
@@ -84,6 +87,7 @@ margin_bottom = 78.0
 mouse_filter = 2
 
 [node name="H" type="HBoxContainer" parent="Placement/V2"]
+editor/display_folded = true
 margin_right = 94.0
 margin_bottom = 15.0
 mouse_filter = 2

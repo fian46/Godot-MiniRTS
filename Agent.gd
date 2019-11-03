@@ -143,7 +143,7 @@ func distance_to_closest_wall(value:Vector2):
 		return 0
 
 func move(desired_velocity):
-	move_vel = move_vel + (desired_velocity - move_vel)
+	move_vel = move_vel + 0.5 * (desired_velocity - move_vel)
 	return
 
 func halt():

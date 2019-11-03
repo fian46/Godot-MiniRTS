@@ -8,6 +8,7 @@ var red_elixir := 0
 
 var skel = load("res://Character/Skeleton/Skeleton.tscn")
 var arch = load("res://Character/Archer/Archer.tscn")
+var nav:Navigation2D = null
 
 var red_deck = [0, 1, 0, 1, 0, 1, 0, 1]
 var blue_deck = [0, 1, 0, 1, 0, 1, 0, 1]
