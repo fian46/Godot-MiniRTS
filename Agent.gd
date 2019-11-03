@@ -6,6 +6,7 @@ var field = {}
 var radar = []
 var nearest
 var health = 10
+var pending_damage = 0
 var acc = 1
 var base_rad = 0
 var area_radius = 65
@@ -77,11 +78,7 @@ func _enter_tree():
 
 func nearest_target():
 	var selected = null;
-	var near = []
-	if  is_blue:
-		near = global.get_nearest_red(position)
-	else:
-		near = global.get_nearest_blue(position)
+	var near = nearest_group()
 	for i in near:
 		if  selected == null:
 			selected = i
@@ -92,6 +89,12 @@ func nearest_target():
 	else:
 		nearest = null
 	return
+
+func nearest_group():
+	if  is_blue:
+		return global.get_nearest_red(position)
+	else:
+		return global.get_nearest_blue(position)
 
 var psign = 0
 var csign = 0

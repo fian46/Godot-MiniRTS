@@ -60,6 +60,8 @@ func state_machine():
 			state = deal_damage()
 	return
 
+var path:Curve2D = Curve2D.new()
+
 func agro():
 	cont()
 	var ne = get_nearest()
@@ -67,9 +69,20 @@ func agro():
 		return FORWARD
 	if  ne.position.distance_to(position) <= 60:
 		return ATTACK
-	var field = ne.position - position
-	var speed = field.normalized() * max_speed
-	move(speed)
+	
+	var arr = global.nav.get_simple_path(position, ne.position, true)
+	path.clear_points()
+	
+	for v in arr:
+		path.add_point(v)
+	
+	var coffset = path.get_closest_offset(position)
+	var fixed_delta = 1.0 / 30.0
+	coffset += fixed_delta * max_speed
+	var next_point = path.interpolate_baked(coffset)
+	var field = next_point - position
+	field = field.normalized()
+	move(field * max_speed)
 	return AGRO
 
 func attack():
@@ -99,6 +112,20 @@ func attack():
 func deal_damage():
 	var ne = get_nearest()
 	if  ne:
+		if  ne.pending_damage > health:
+			var selected = null
+			for i in nearest_group():
+				if  i.pending_damage > health:
+					continue
+				if  selected == null:
+					selected = i
+				elif  selected.position.distance_to(position) > i.position.distance_to(position):
+					selected = i
+			if  selected:
+				ne = selected
+			else:
+				return FORWARD
+		ne.pending_damage += 12
 		var ar = arrow_class.instance()
 		ar.position = position
 		ar.set_target(ne)
@@ -112,13 +139,12 @@ func forward():
 	var ne = get_nearest()
 	if  ne:
 		var distance_to_ne = ne.position.distance_to(position)
-		if  distance_to_ne < 70 and (distance_to_ne - distance_to_closest_wall(ne.position)) < 60:
-			return AGRO
-		elif distance_to_ne < 60 + 2 * get_base_radius():
+		if  distance_to_ne < 60:
 			return ATTACK
+		elif distance_to_ne < 70:
+			return AGRO
 	
 	var field = flow_field()
-	var max_speed = 20
 	var speed = field.normalized() * max_speed
 	move(speed)
 	return FORWARD

@@ -5,8 +5,8 @@
 [ext_resource path="res://Tile.tres" type="TileSet" id=3]
 [ext_resource path="res://FlowField.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Offline-Test/Unit-Offline.gd" type="Script" id=5]
-[ext_resource path="res://Character/Archer/Archer.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Character/Skeleton/Skeleton.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Character/Skeleton/Skeleton.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Offline-Test/Navigation2D.gd" type="Script" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 60, 10 )
@@ -38,8 +38,10 @@ script = ExtResource( 2 )
 
 [node name="Choke" type="Node2D" parent="."]
 pause_mode = 1
+editor/display_folded = true
 
 [node name="TileMap" type="TileMap" parent="Choke"]
+editor/display_folded = true
 tile_set = ExtResource( 3 )
 cell_size = Vector2( 10, 10 )
 cell_quadrant_size = 128
@@ -843,6 +845,7 @@ level = 0
 invert_color = true
 
 [node name="Unit" type="YSort" parent="Choke/TileMap"]
+editor/display_folded = true
 script = ExtResource( 5 )
 
 [node name="Blue" type="Node2D" parent="Choke/TileMap/Unit"]
@@ -851,35 +854,38 @@ position = Vector2( 0, 125 )
 [node name="Red" type="Node2D" parent="Choke/TileMap/Unit"]
 position = Vector2( 0, -125 )
 
-[node name="Archer" parent="Choke/TileMap/Unit" instance=ExtResource( 6 )]
-position = Vector2( 70.3898, -108.865 )
-
-[node name="Archer2" parent="Choke/TileMap/Unit" instance=ExtResource( 6 )]
-position = Vector2( 56.2948, -107.565 )
-
-[node name="Skeleton" parent="Choke/TileMap/Unit" instance=ExtResource( 7 )]
+[node name="Skeleton" parent="Choke/TileMap/Unit" instance=ExtResource( 6 )]
 position = Vector2( 54.8279, -91.8116 )
 
-[node name="Skeleton6" parent="Choke/TileMap/Unit" instance=ExtResource( 7 )]
+[node name="Skeleton6" parent="Choke/TileMap/Unit" instance=ExtResource( 6 )]
 position = Vector2( 48.0499, -86.3892 )
 
-[node name="Skeleton7" parent="Choke/TileMap/Unit" instance=ExtResource( 7 )]
+[node name="Skeleton7" parent="Choke/TileMap/Unit" instance=ExtResource( 6 )]
 position = Vector2( 55.9576, -82.3223 )
 
-[node name="Skeleton2" parent="Choke/TileMap/Unit" instance=ExtResource( 7 )]
+[node name="Skeleton2" parent="Choke/TileMap/Unit" instance=ExtResource( 6 )]
 position = Vector2( 66.2096, -92.2837 )
 
-[node name="Skeleton5" parent="Choke/TileMap/Unit" instance=ExtResource( 7 )]
+[node name="Skeleton5" parent="Choke/TileMap/Unit" instance=ExtResource( 6 )]
 position = Vector2( 59.4315, -86.8612 )
 
-[node name="Skeleton9" parent="Choke/TileMap/Unit" instance=ExtResource( 7 )]
+[node name="Skeleton9" parent="Choke/TileMap/Unit" instance=ExtResource( 6 )]
 position = Vector2( 67.3392, -82.7943 )
 
-[node name="Skeleton3" parent="Choke/TileMap/Unit" instance=ExtResource( 7 )]
+[node name="Skeleton3" parent="Choke/TileMap/Unit" instance=ExtResource( 6 )]
 position = Vector2( 80.3141, -93.479 )
 
-[node name="Skeleton4" parent="Choke/TileMap/Unit" instance=ExtResource( 7 )]
+[node name="Skeleton4" parent="Choke/TileMap/Unit" instance=ExtResource( 6 )]
 position = Vector2( 73.536, -88.0565 )
 
-[node name="Skeleton8" parent="Choke/TileMap/Unit" instance=ExtResource( 7 )]
+[node name="Skeleton8" parent="Choke/TileMap/Unit" instance=ExtResource( 6 )]
 position = Vector2( 81.4438, -83.9897 )
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+script = ExtResource( 7 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Navigation2D"]
+position = Vector2( 3, 0 )
+scale = Vector2( 1.04526, 1 )
+color = Color( 1, 1, 1, 0.243137 )
+polygon = PoolVector2Array( -108.107, -150, -32.3936, -149.213, -33.3108, -160, 24.0912, -160, 24.0912, -150, 102.367, -150, 102.367, -10, 83.2329, -10, 83.2329, 10, 102.367, 10, 102.367, 150, 25.8309, 150, 25.8309, 160, -2.8701, 160, -31.5711, 160, -31.5711, 150, -108.107, 150, -108.107, 150, -108.107, 10, -88.9731, 10, -88.9731, -10, -108.107, -10 )
