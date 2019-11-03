@@ -114,7 +114,8 @@ func deal_damage():
 	if  ne:
 		if  ne.pending_damage > health:
 			var selected = null
-			for i in nearest_group():
+			var ng = nearest_group()
+			for i in ng:
 				if  i.pending_damage > health:
 					continue
 				if  selected == null:
@@ -123,6 +124,8 @@ func deal_damage():
 					selected = i
 			if  selected:
 				ne = selected
+			elif not ng.empty():
+				ne = ng[0]
 			else:
 				return FORWARD
 		ne.pending_damage += 12

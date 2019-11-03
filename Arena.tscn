@@ -38,8 +38,6 @@ polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 5, 6, 7, 8, 9, 10 ), P
 outlines = [ PoolVector2Array( 0, -160, 30, -160, 30, -150, 110, -150, 110, -10, 90, -10, 90, 10, 110, 10, 110, 150, 30, 150, 30, 160, -30, 160, -30, 150, -110, 150, -110, 10, -90, 10, -90, -10, -110, -10, -110, -150, -30, -150, -30, -160 ), PoolVector2Array( -60, -10, 60, -10, 60, 10, -60, 10 ) ]
 
 [sub_resource type="StyleBoxFlat" id=8]
-content_margin_left = 7.0
-content_margin_right = 7.0
 bg_color = Color( 0.137255, 0.0392157, 0.0470588, 1 )
 border_width_left = 2
 border_width_top = 2
@@ -49,6 +47,7 @@ border_color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
+shadow_color = Color( 0.0666667, 0.0588235, 0.0588235, 0.6 )
 anti_aliasing = false
 
 [node name="Arena" type="Node2D"]
@@ -63,6 +62,7 @@ script = ExtResource( 2 )
 
 [node name="Choke" type="Node2D" parent="."]
 pause_mode = 1
+editor/display_folded = true
 
 [node name="TileMap" type="TileMap" parent="Choke"]
 editor/display_folded = true
@@ -951,31 +951,36 @@ pause_mode = 2
 editor/display_folded = true
 visible = false
 script = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="BG" type="Polygon2D" parent="HostScreen"]
+scale = Vector2( 2, 2 )
 color = Color( 0.0196078, 0.0941176, 0.121569, 0.862745 )
 polygon = PoolVector2Array( -130, -195, 130, -195, 130, 265, -130, 265 )
 
 [node name="Control" type="Control" parent="HostScreen"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -130.0
-margin_top = -195.0
-margin_right = 130.0
-margin_bottom = 265.0
+margin_left = -120.0
+margin_top = -185.0
+margin_right = 180.0
+margin_bottom = 371.0
+rect_scale = Vector2( 0.8, 0.8 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HostScreen/Control"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -100.0
-margin_bottom = -62.0
+margin_bottom = -44.0
 alignment = 1
 
 [node name="Button" type="Button" parent="HostScreen/Control/HBoxContainer"]
-margin_left = 74.0
-margin_right = 186.0
-margin_bottom = 38.0
+margin_left = 94.0
+margin_right = 206.0
+margin_bottom = 56.0
 custom_fonts/font = ExtResource( 8 )
 text = "Cancel Host"
 
@@ -993,53 +998,56 @@ pause_mode = 2
 editor/display_folded = true
 visible = false
 script = ExtResource( 12 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="BG" type="Polygon2D" parent="JointScreen"]
+position = Vector2( -1, 5 )
+scale = Vector2( 2, 2 )
 color = Color( 0.0196078, 0.0941176, 0.121569, 0.862745 )
 polygon = PoolVector2Array( -130, -195, 130, -195, 130, 265, -130, 265 )
 
 [node name="Control" type="Control" parent="JointScreen"]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -130.0
-margin_top = -195.0
-margin_right = 130.0
-margin_bottom = 265.0
+margin_left = -120.0
+margin_top = -185.0
+margin_right = 180.0
+margin_bottom = 371.0
+rect_scale = Vector2( 0.8, 0.8 )
 
 [node name="low" type="HBoxContainer" parent="JointScreen/Control"]
-editor/display_folded = true
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = -100.0
-margin_right = -10.0
-margin_bottom = -45.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+margin_left = 31.0396
+margin_top = -99.75
+margin_right = -29.9604
+margin_bottom = -44.75
 alignment = 1
 
 [node name="StartJoint" type="Button" parent="JointScreen/Control/low"]
-margin_right = 118.0
+margin_right = 117.0
 margin_bottom = 55.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 8 )
 text = "Start Joint"
 
 [node name="CancelJoint" type="Button" parent="JointScreen/Control/low"]
-margin_left = 122.0
-margin_right = 240.0
+margin_left = 121.0
+margin_right = 239.0
 margin_bottom = 55.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 8 )
 text = "Cancel Joint"
 
 [node name="input" type="HBoxContainer" parent="JointScreen/Control"]
-editor/display_folded = true
 anchor_right = 1.0
-margin_left = 15.0
+margin_left = 14.0
 margin_top = 135.0
-margin_right = -15.0
+margin_right = -13.0
 margin_bottom = 165.0
 
 [node name="Label" type="Label" parent="JointScreen/Control/input"]
@@ -1048,10 +1056,12 @@ margin_right = 88.0
 margin_bottom = 24.0
 custom_fonts/font = ExtResource( 8 )
 text = "Server IP :"
+align = 1
+valign = 1
 
 [node name="TextEdit" type="TextEdit" parent="JointScreen/Control/input"]
 margin_left = 92.0
-margin_right = 230.0
+margin_right = 273.0
 margin_bottom = 30.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -1060,6 +1070,7 @@ custom_fonts/font = ExtResource( 8 )
 text = "192.168.1.78"
 
 [node name="input2" type="HBoxContainer" parent="JointScreen/Control"]
+editor/display_folded = true
 visible = false
 anchor_right = 1.0
 margin_left = 15.0
@@ -1069,9 +1080,9 @@ margin_bottom = 195.0
 alignment = 1
 
 [node name="FailedInfo" type="Label" parent="JointScreen/Control/input2"]
-margin_left = 35.0
+margin_left = 55.0
 margin_top = 5.0
-margin_right = 194.0
+margin_right = 214.0
 margin_bottom = 24.0
 custom_fonts/font = ExtResource( 8 )
 custom_colors/font_color = Color( 0.792157, 0.219608, 0.219608, 1 )

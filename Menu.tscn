@@ -8,28 +8,37 @@
 script = ExtResource( 1 )
 
 [node name="BG" type="Polygon2D" parent="."]
-position = Vector2( -169.859, -300 )
-scale = Vector2( 1.01408, 1 )
+position = Vector2( -335, -600 )
+scale = Vector2( 2, 2 )
 color = Color( 0.0196078, 0.0941176, 0.121569, 1 )
 polygon = PoolVector2Array( 345, 0, 345, 610, -10, 610, -10, -10, 345, -10 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 editor/display_folded = true
 anchor_bottom = 1.0
-margin_left = -92.2067
-margin_top = 102.779
-margin_right = 91.7933
-margin_bottom = 163.779
+margin_left = -92.0
+margin_top = 119.0
+margin_right = 92.0
+margin_bottom = 174.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Host" type="Button" parent="HBoxContainer"]
 margin_right = 90.0
-margin_bottom = 61.0
+margin_bottom = 55.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 3 )
@@ -38,7 +47,7 @@ text = "Host"
 [node name="Joint" type="Button" parent="HBoxContainer"]
 margin_left = 94.0
 margin_right = 184.0
-margin_bottom = 61.0
+margin_bottom = 55.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 3 )

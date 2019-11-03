@@ -10,8 +10,11 @@ func _ready():
 
 func screen_size():
 	size = get_viewport().size
+	var sr = size.y / size.x
+	var gr = 460 / 280
+	
 	var h = size.y
-	var gh = 420 + 30
+	var gh = 460 + 10 * (sr / gr)
 	var sy = gh / h
 	zoom = Vector2(sy, sy)
 	return
