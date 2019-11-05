@@ -33,12 +33,12 @@ func set_snapshot(snap):
 func _integrate_forces(state:Physics2DDirectBodyState):
 	if  sync_position:
 		state.transform = Transform2D(0, sync_position)
+		state.linear_velocity = move_vel
 		sync_position = null
 	else:
 		var res_vel = state.linear_velocity
 		state.linear_velocity = move_vel
 		move_vel = res_vel
-	state.integrate_forces()
 	return
 
 func get_nearest():
@@ -63,7 +63,6 @@ func remove_force_field(id):
 	csign += 1
 	return
 
-#we use this
 func state_machine():
 	return
 

@@ -71,4 +71,4 @@ anims/w-w = ExtResource( 9 )
 tree_root = SubResource( 9 )
 anim_player = NodePath("..")
 active = true
-parameters/blend_position = Vector2( 0.00550461, -0.586207 )
+parameters/blend_position = Vector2( -0.00863558, -0.827586 )

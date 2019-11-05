@@ -7,6 +7,7 @@ const ATTACK_ANIMATION = 3
 const DEAL_DAMAGE = 4
 
 var state = FORWARD
+var angle = 0
 
 func get_type():
 	return 0
@@ -24,6 +25,7 @@ func get_snapshot():
 	else:
 		b.put_u8(0)
 	b.put_float(health)
+	b.put_float(angle)
 	return b.data_array
 
 func set_snapshot(snap):
@@ -40,7 +42,8 @@ func set_snapshot(snap):
 	else:
 		is_blue = false
 	health = b.get_float()
-	$Anim.speed(linear_velocity)
+	angle = b.get_float()
+	$Anim.speed(Vector2(cos(angle), sin(angle)).rotated(PI))
 	return
 
 func _ready():
@@ -59,14 +62,33 @@ func state_machine():
 	match (state):
 		FORWARD :
 			state = follow_field()
+			look_where_you_move()
 		AGRO :
 			state = agro()
+			look_where_you_move()
 		ATTACK :
 			state = attack()
+			look_at_nearest()
 		ATTACK_ANIMATION:
 			state = attack_animation()
+			look_at_nearest()
 		DEAL_DAMAGE:
 			state = deal_damage()
+			look_at_nearest()
+	return
+
+func look_at_nearest():
+	var ne = get_nearest()
+	if  not ne:
+		return
+	var dir:Vector2 = ne.position - position
+	$Anim.speed(dir.normalized())
+	angle = dir.angle()
+	return
+
+func look_where_you_move():
+	$Anim.speed(move_vel.normalized())
+	angle = move_vel.angle()
 	return
 
 func on_deploy_retarget():
@@ -104,10 +126,7 @@ func attack_animation():
 			begin_attack = false
 			attack_animation_frame = 0
 			return DEAL_DAMAGE
-	var ne = get_nearest()
-	if  ne:
-		var dir = ne.position - position
-		$Anim.speed(dir)
+	
 	return ATTACK_ANIMATION
 
 func deal_damage():
@@ -146,7 +165,6 @@ func agro():
 	var field = next_point - position
 	field = field.normalized()
 	move(field * max_speed)
-	$Anim.speed(move_vel)
 	return AGRO
 
 func in_attack_range():
@@ -166,5 +184,4 @@ func follow_field():
 		return ATTACK
 	var tspeed = field * max_speed
 	move(tspeed)
-	$Anim.speed(move_vel)
 	return FORWARD
