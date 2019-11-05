@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Offline-Test/Arena-Offline.gd" type="Script" id=1]
 [ext_resource path="res://Offline-Test/Camera2D-Offline.gd" type="Script" id=2]
@@ -26,6 +26,11 @@ extents = Vector2( 110, 95 )
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 40, 10 )
 
+[sub_resource type="NavigationPolygon" id=7]
+vertices = PoolVector2Array( 60, 10, 60, -10, 90, -10, 90, 10, -30, -150, -30, -160, 30, -160, 30, -150, 110, -150, 110, -10, -60, -10, -110, -150, -90, -10, 110, 10, 110, 150, 30, 150, -60, 10, -30, 150, 30, 160, -30, 160, -110, 150, -90, 10, -110, 10, -110, -10 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 5, 6, 7 ), PoolIntArray( 7, 8, 9, 2 ), PoolIntArray( 7, 2, 1 ), PoolIntArray( 7, 1, 10, 4 ), PoolIntArray( 11, 4, 10, 12 ), PoolIntArray( 3, 13, 14, 15 ), PoolIntArray( 0, 3, 15 ), PoolIntArray( 16, 0, 15, 17 ), PoolIntArray( 15, 18, 19, 17 ), PoolIntArray( 16, 17, 20, 21 ), PoolIntArray( 20, 22, 21 ), PoolIntArray( 10, 16, 21, 12 ), PoolIntArray( 11, 12, 23 ) ]
+outlines = [ PoolVector2Array( -30, -150, -30, -160, 30, -160, 30, -150, 110, -150, 110, -10, 90, -10, 90, 10, 110, 10, 110, 150, 30, 150, 30, 160, -30, 160, -30, 150, -110, 150, -110, 10, -90, 10, -90, -10, -110, -10, -110, -150 ), PoolVector2Array( -60, -10, 60, -10, 60, 10, -60, 10 ) ]
+
 [node name="Arena-Offline" type="Node2D"]
 pause_mode = 2
 script = ExtResource( 1 )
@@ -38,10 +43,8 @@ script = ExtResource( 2 )
 
 [node name="Choke" type="Node2D" parent="."]
 pause_mode = 1
-editor/display_folded = true
 
 [node name="TileMap" type="TileMap" parent="Choke"]
-editor/display_folded = true
 tile_set = ExtResource( 3 )
 cell_size = Vector2( 10, 10 )
 cell_quadrant_size = 128
@@ -855,37 +858,35 @@ position = Vector2( 0, 125 )
 position = Vector2( 0, -125 )
 
 [node name="Skeleton" parent="Choke/TileMap/Unit" instance=ExtResource( 6 )]
-position = Vector2( 54.8279, -91.8116 )
+position = Vector2( 39.2623, -118.333 )
 
 [node name="Skeleton6" parent="Choke/TileMap/Unit" instance=ExtResource( 6 )]
-position = Vector2( 48.0499, -86.3892 )
+position = Vector2( 32.4843, -112.91 )
 
 [node name="Skeleton7" parent="Choke/TileMap/Unit" instance=ExtResource( 6 )]
-position = Vector2( 55.9576, -82.3223 )
+position = Vector2( 40.392, -108.843 )
 
 [node name="Skeleton2" parent="Choke/TileMap/Unit" instance=ExtResource( 6 )]
-position = Vector2( 66.2096, -92.2837 )
+position = Vector2( 50.644, -118.805 )
 
 [node name="Skeleton5" parent="Choke/TileMap/Unit" instance=ExtResource( 6 )]
-position = Vector2( 59.4315, -86.8612 )
+position = Vector2( 43.8659, -113.382 )
 
 [node name="Skeleton9" parent="Choke/TileMap/Unit" instance=ExtResource( 6 )]
-position = Vector2( 67.3392, -82.7943 )
+position = Vector2( 51.7736, -109.315 )
 
 [node name="Skeleton3" parent="Choke/TileMap/Unit" instance=ExtResource( 6 )]
-position = Vector2( 80.3141, -93.479 )
+position = Vector2( 64.7485, -120 )
 
 [node name="Skeleton4" parent="Choke/TileMap/Unit" instance=ExtResource( 6 )]
-position = Vector2( 73.536, -88.0565 )
+position = Vector2( 57.9704, -114.577 )
 
 [node name="Skeleton8" parent="Choke/TileMap/Unit" instance=ExtResource( 6 )]
-position = Vector2( 81.4438, -83.9897 )
+position = Vector2( 65.8782, -110.511 )
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
+visible = false
 script = ExtResource( 7 )
 
-[node name="Polygon2D" type="Polygon2D" parent="Navigation2D"]
-position = Vector2( 3, 0 )
-scale = Vector2( 1.04526, 1 )
-color = Color( 1, 1, 1, 0.243137 )
-polygon = PoolVector2Array( -108.107, -150, -32.3936, -149.213, -33.3108, -160, 24.0912, -160, 24.0912, -150, 102.367, -150, 102.367, -10, 83.2329, -10, 83.2329, 10, 102.367, 10, 102.367, 150, 25.8309, 150, 25.8309, 160, -2.8701, 160, -31.5711, 160, -31.5711, 150, -108.107, 150, -108.107, 150, -108.107, 10, -88.9731, 10, -88.9731, -10, -108.107, -10 )
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
+navpoly = SubResource( 7 )

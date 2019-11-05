@@ -6,7 +6,7 @@ var current_fr
 var agent_class = load("res://Agent.gd")
 
 var new_unit = []
-var skel = load("res://Character/Archer/Archer.tscn")
+var skel = load("res://Character/Skeleton/Skeleton.tscn")
 var retarget_event = false
 
 func exec_thread():
@@ -71,7 +71,7 @@ func create_skel(name, position, blue):
 func server_deploy_unit():
 	for i in new_unit:
 		var offset = Vector2(2, 0)
-		for j in range(1):
+		for j in range(10):
 			offset = offset.rotated(deg2rad(17)) * 1.1
 			var child = create_skel(global.ngen(), i[1] + offset, i[2])
 			child.sync_position = i[1] + offset

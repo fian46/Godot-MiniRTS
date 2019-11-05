@@ -40,11 +40,19 @@ func set_snapshot(snap):
 	else:
 		is_blue = false
 	health = b.get_float()
+	$Anim.speed(linear_velocity)
 	return
 
 func _ready():
 	area_radius = 70
 	health = 10
+	return
+
+func _enter_tree():
+	if  is_blue:
+		$Anim.self_modulate = Color("7fabe9")
+	else:
+		$Anim.self_modulate = Color("e97f8e")
 	return
 
 func state_machine():
@@ -96,6 +104,10 @@ func attack_animation():
 			begin_attack = false
 			attack_animation_frame = 0
 			return DEAL_DAMAGE
+	var ne = get_nearest()
+	if  ne:
+		var dir = ne.position - position
+		$Anim.speed(dir)
 	return ATTACK_ANIMATION
 
 func deal_damage():
@@ -134,6 +146,7 @@ func agro():
 	var field = next_point - position
 	field = field.normalized()
 	move(field * max_speed)
+	$Anim.speed(move_vel)
 	return AGRO
 
 func in_attack_range():
@@ -153,4 +166,5 @@ func follow_field():
 		return ATTACK
 	var tspeed = field * max_speed
 	move(tspeed)
+	$Anim.speed(move_vel)
 	return FORWARD

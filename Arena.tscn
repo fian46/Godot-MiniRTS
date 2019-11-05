@@ -62,7 +62,6 @@ script = ExtResource( 2 )
 
 [node name="Choke" type="Node2D" parent="."]
 pause_mode = 1
-editor/display_folded = true
 
 [node name="TileMap" type="TileMap" parent="Choke"]
 editor/display_folded = true
@@ -75,6 +74,9 @@ tile_data = PoolIntArray( -1048580, 5, 0, -1048579, 5, 0, -1048578, 5, 0, -10485
 [node name="border_field" type="Node2D" parent="Choke/TileMap"]
 editor/display_folded = true
 visible = false
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CenterBody" type="StaticBody2D" parent="Choke/TileMap/border_field"]
 editor/display_folded = true
@@ -217,7 +219,9 @@ invert_color = false
 
 [node name="blue_field" type="Node2D" parent="Choke/TileMap"]
 editor/display_folded = true
-visible = false
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="FlowField210" parent="Choke/TileMap/blue_field" instance=ExtResource( 4 )]
 position = Vector2( -14.5004, 25.5001 )
@@ -541,8 +545,11 @@ invert_color = false
 
 [node name="red_field" type="Node2D" parent="Choke/TileMap"]
 editor/display_folded = true
-visible = false
+position = Vector2( 1.16226, 0.851593 )
 rotation = 3.14159
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="FlowField210" parent="Choke/TileMap/red_field" instance=ExtResource( 4 )]
 position = Vector2( -14.5004, 25.5001 )
@@ -890,7 +897,6 @@ position = Vector2( 0, 125 )
 position = Vector2( 0, -125 )
 
 [node name="Center" type="Node2D" parent="Choke"]
-editor/display_folded = true
 
 [node name="bg" type="Line2D" parent="Choke/Center"]
 position = Vector2( 4.55988, 202.039 )
@@ -909,6 +915,10 @@ script = ExtResource( 6 )
 
 [node name="elixir_timer" type="Timer" parent="Choke/Center/elixir"]
 autostart = true
+
+[node name="bg2" type="Polygon2D" parent="Choke/Center"]
+color = Color( 0.407843, 0.137255, 0.00784314, 1 )
+polygon = PoolVector2Array( -120, 200, 120, 200, 120, 260, -120, 260 )
 
 [node name="Deck" parent="Choke/Center" instance=ExtResource( 7 )]
 margin_left = -115.732
@@ -941,9 +951,12 @@ align = 1
 valign = 1
 
 [node name="Nav" type="Navigation2D" parent="Choke"]
+editor/display_folded = true
+visible = false
 script = ExtResource( 10 )
 
-[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Choke/Nav"]
+[node name="NavPoly" type="NavigationPolygonInstance" parent="Choke/Nav"]
+visible = false
 navpoly = SubResource( 7 )
 
 [node name="HostScreen" type="Node2D" parent="."]
